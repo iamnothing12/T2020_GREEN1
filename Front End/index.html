@@ -1,23 +1,23 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <meta charset="utf-8">
-<link href="style.css" rel='stylesheet' type='text/css' />
+
 <head>
-	<link href="images/logo-icon.ico" type="image/png" rel="shortcut icon"/>
+	<link href="./images/logo-icon.ico" type="image/png" rel="shortcut icon"/>
 	<title>DBS Page</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="utf-8">
 	<meta name="keywords" content="Stock Responsive web template, Bootstrap Web Templates, Flat Web Templates" />
 
-
+	<link href="{{ url_for('static', filename='css/style.css') }}" rel='stylesheet' type='text/css' />
 	<!-- Bootstrap Core CSS -->
-	<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+	<link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel='stylesheet' type='text/css' />
 	<!-- popup box -->
-	<link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="{{ url_for('static', filename='css/popuo-box.css') }}" rel="stylesheet" type="text/css" media="all" />
 	<!-- Custom CSS -->
-	<link href="css/style.css" rel='stylesheet' type='text/css' />
+	<link href="{{ url_for('static', filename='css/style.css') }}" rel='stylesheet' type='text/css' />
 	<!-- font-awesome icons -->
-	<link href="css/fontawesome-all.min.css" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/fontawesome-all.min.css') }}" rel="stylesheet">
 	<!-- //Custom Theme files -->
 
 
@@ -26,7 +26,7 @@
 <body>
 <header>
 <div class ="wrapper">
-<h1><img src ="Images/dbs_logo.JPG" alt = "DBS LOGIN" class = "logo"></h1>
+<h1><img src ="{{ url_for('static', filename='images/dbs_logo.jpg') }}" alt = "DBS LOGIN" class = "logo"></h1>
 </div>
 </header>
 
@@ -46,8 +46,6 @@
 
 
 </div>
-
-
 
 </form>
 </body>
