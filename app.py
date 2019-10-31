@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, render_template, send_from_directory, request
 import requests
 import json
 import httplib2 as http
@@ -41,14 +41,8 @@ response, content = h.request(
 # parse content with the json module
 data = json.loads(content)
 
-print(data)
+# print(data)
 
-# Custom static data
-@app.route("/css/<filename>")
-def get_css(filename):
-    filename = f"{filename}"
-    print (filename)
-    return send_from_directory("/Front End/css/", filename=filename, as_attachment=True)
 @app.route('/',methods= ['GET','POST'])
 def login():
     return render_template('index.html')
@@ -60,53 +54,14 @@ def home(): # need to accept parameters
     path = "customers/"+ username_field
     target = urlparse(uri+path)
     response, content = h.request(target.geturl(),method,body,headers)
-    print(content)
-    data = json.loads(content)
+    customerData = json.loads(content)
+    if str(request.form['password']) != 'pass':
+        return render_template('index.html')
+    if response == 404:
+        return render_template('index.html')
+    
     return render_template('login.html',login=data)
-    # return render_template('login.html', login=json.loads(content))
-
-@app.route('/css')
-def css():
-    return
-# def init_session():
-#     r = requests.Session()
-#     r.headers.update({'identity':API_IDENTITY,'token':API_TOKEN})
-#     r.get('http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/')
-
-
-
-# @app.route('/')
-# def login1():
-#     r =requests.get("http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/customers/1")
-#     print(r)
-#     return render_template('login.html', login=json.loads(r.text))
-#     # return render_template('login.html')
-# # @app.route('/', methods=['GET', 'POST'])
-# # def login():
-# #     error = None
-# #     if request.method == 'POST':
-# #         if request.form['username'] != 'admin' or request.form['password'] != 'admin':
-# #             error = 'Invalid Credentials. Please try again.'
-# #         else:
-# #             return redirect(url_for('home'))
-# #     return render_template('login.html', error=error)
-
-
-# # @app.route('/customers/:<USERNAME>')#,method=['GET'])
-# # def homepage(username):
-# #     r = requests.Session()
-# #     r.headers.update({'identity':API_IDENTITY,'token':API_TOKEN})
-# #     r.get('http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/customers/1')
-# #     print (r)
-# #     return Response(
-# #         r.text,
-# #         status=r.status_code,
-# #         content_type=r.headers['content-type'],
-# #     )
-#     # r = requests.get(
-#     #   'http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/')
-#     # print(r)
-#     # return render_template('login.html', login=json.loads(r.text)['customerId'])
+   
 
 if __name__ == '__main__':
     # init_session()
