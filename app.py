@@ -60,7 +60,7 @@ def home(): # need to accept parameters
     if response == 404:
         return render_template('index.html')
     
-    return render_template('login.html',login=data)
+    return render_template('login.html',login=customerData)
    
 
 if __name__ == '__main__':
