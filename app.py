@@ -78,7 +78,7 @@ def home(): # need to accept parameters
     return render_template('home.html',login=customerData)
 
 
-@app.route('/transaction',methods=['GET'])
+@app.route('/expenditure',methods=['GET'])
 def get_transaction():
     # datetime.today().strftime('%Y-%m-%d')
     # print(datetime)
@@ -108,7 +108,7 @@ def get_transaction():
     pie_chart = pie_chart.render_data_uri()
     return render_template('transaction.html', chart =pie_chart)
 
-@app.route('/transaction1',methods=['GET'])
+@app.route('/transaction',methods=['GET'])
 def get_transaction1():
     path = 'transactions/'+ r'74/?from=01-01-2019&to=01-31-2019'
     target = urlparse(uri+path)
