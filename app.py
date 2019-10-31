@@ -49,6 +49,11 @@ data = json.loads(content)
 def login():
     return render_template('index.html')
 
+@app.route('/expenditure',methods= ['GET','POST'])
+def expenditure():
+    return render_template('expenditure.html')
+
+
 @app.route('/customers',methods=['POST'])
 def home(): # need to accept parameters
     text = request.form['username']
@@ -62,7 +67,7 @@ def home(): # need to accept parameters
     if response == 404:
         return render_template('index.html')
 
-    return render_template('login.html',login=customerData)
+    return render_template('home.html',login=customerData)
 
 @app.route('/transaction',methods=['GET'])
 def get_transaction():

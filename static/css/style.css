@@ -83,7 +83,7 @@ table.promo{
   height: 3000px;
 }
 
-th, tr{
+th.promo, tr.promo{
   width: 300px;
   height: 500px;
 }
@@ -100,4 +100,17 @@ th, tr{
 
 .cashback{
   display: block;
+}
+
+table.trans{
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+th.trans, td.trans {
+  text-align: left;
+  padding: 8px;
+  font-weight: normal;
 }
