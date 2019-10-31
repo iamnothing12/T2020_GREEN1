@@ -55,7 +55,9 @@ def login():
 
 @app.route('/customers',methods=['POST'])
 def home(): # need to accept parameters
-    path = "customers/limzeyang"
+    text = request.form['username']
+    username_field = text    
+    path = "customers/"+ username_field
     target = urlparse(uri+path)
     response, content = h.request(target.geturl(),method,body,headers)
     print(content)
