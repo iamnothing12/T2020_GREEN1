@@ -11,8 +11,8 @@ body{ font-family:Verdana, Arial, sans-serif;
 .logo{
 	/*text-align: center;*/
 	display: block;
-    margin-left: auto;
-  	margin-right: auto;
+  margin-left: auto;
+  margin-right: auto;
   	
 	width: 350px;
 	height: 180px;
@@ -44,6 +44,7 @@ input[type=text], input[type=password] {
 button:hover{
 	opacity: 0.8;
 }
+
 
 .topnav {
   background-color: #333;
@@ -78,24 +79,38 @@ button:hover{
 }
 
 table.promo{
-  width: 800px;
+  width: 500px;
   height: 3000px;
+}
+
+th.promo, tr.promo{
+  width: 300px;
+  height: 500px;
 }
 
 .grabpay{
   display: block;
-  width: 100px;
-  height: 100px;
+  
 }
 
 .gojek{
   display: block;
- width: 100px;
-  height: 100px;
+  margin-left: 150px;
 }
 
 .cashback{
   display: block;
-   width: 100px;
-  height: 100px;
+}
+
+table.trans{
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+th.trans, td.trans {
+  text-align: left;
+  padding: 8px;
+  font-weight: normal;
 }

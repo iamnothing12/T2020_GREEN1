@@ -50,10 +50,16 @@ data = json.loads(content)
 def login():
     return render_template('index.html')
 
-@app.route('/customers', methods=['POST'])
-def validate(): # need to accept parameters
-    username_field = request.form['username']
-    path = 'customers/'+ username_field
+@app.route('/expenditure',methods= ['GET','POST'])
+def expenditure():
+    return render_template('expenditure.html')
+
+
+@app.route('/customers',methods=['POST'])
+def home(): # need to accept parameters
+    text = request.form['username']
+    username_field = text
+    path = "customers/"+ username_field
     target = urlparse(uri+path)
     response, content = h.request(target.geturl(),method,body,headers)
     customerData = json.loads(content)
@@ -70,7 +76,6 @@ def validate(): # need to accept parameters
     customerData = json.loads(content)
     print(customerData)
     return render_template('home.html',login=customerData)
-
 
 
 @app.route('/transaction',methods=['GET'])
