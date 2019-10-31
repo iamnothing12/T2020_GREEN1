@@ -1,8 +1,10 @@
-from flask import Flask, render_template, send_from_directory, request
+from flask import Flask, render_template, send_from_directory, request, Markup
 import requests
 import json
 import httplib2 as http
 import json
+import datetime
+import pygal
 
 try:
     from urlparse import urlparse
@@ -61,7 +63,38 @@ def home(): # need to accept parameters
         return render_template('index.html')
     
     return render_template('login.html',login=customerData)
-   
+
+@app.route('/transaction',methods=['GET'])
+def get_transaction():
+    # datetime.today().strftime('%Y-%m-%d')
+    # print(datetime)
+
+    # date_time_str = '2019-01-29'
+    # date_time_obj = 
+
+    print('Date:', datetime.datetime.strptime("2013-1-25", '%Y-%m-%d').strftime('%m-/%d-/%y'))
+    path = 'transactions/'+ r'74/?from=01-01-2019&to=01-31-2019'
+    print (path)
+    target = urlparse(uri+path)
+    print(target.geturl())
+    response, content = h.request(target.geturl(),method,body,headers)
+    transactionData = json.loads(content)
+    transactionList = {}
+    for details in transactionData:
+        print(str(details['tag']))
+        if details['tag'] in transactionList:
+            transactionList[str(details['tag'])] = float(transactionList[str(details['tag'])])+ float(details['amount'])
+        else:
+            transactionList[str(details['tag'])] = details['amount']
+    pie_chart = pygal.Pie()
+    pie_chart.title = 'Expenditure based on category'
+    for category in transactionList.keys():
+        pie_chart.add(category,  float(transactionList[category]))
+    # return (pie_chart.render())
+    pie_chart = pie_chart.render_data_uri()
+    return render_template('transaction.html', chart =pie_chart)
+
+
 
 if __name__ == '__main__':
     # init_session()
