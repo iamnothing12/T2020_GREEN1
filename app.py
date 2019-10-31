@@ -52,7 +52,7 @@ def login():
 @app.route('/customers',methods=['POST'])
 def home(): # need to accept parameters
     text = request.form['username']
-    username_field = text    
+    username_field = text
     path = "customers/"+ username_field
     target = urlparse(uri+path)
     response, content = h.request(target.geturl(),method,body,headers)
@@ -61,7 +61,7 @@ def home(): # need to accept parameters
         return render_template('index.html')
     if response == 404:
         return render_template('index.html')
-    
+
     return render_template('login.html',login=customerData)
 
 @app.route('/transaction',methods=['GET'])
@@ -70,7 +70,7 @@ def get_transaction():
     # print(datetime)
 
     # date_time_str = '2019-01-29'
-    # date_time_obj = 
+    # date_time_obj =
 
     print('Date:', datetime.datetime.strptime("2013-1-25", '%Y-%m-%d').strftime('%m-/%d-/%y'))
     path = 'transactions/'+ r'74/?from=01-01-2019&to=01-31-2019'
