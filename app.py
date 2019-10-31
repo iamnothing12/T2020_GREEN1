@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, send_from_directory
 import requests
 import json
 import httplib2 as http
@@ -11,6 +11,8 @@ except ImportError:
 
 app = Flask(__name__, template_folder='Front End')
 app.config["DEBUG"] = True
+
+
 
 API_IDENTITY = 'Group20'
 API_TOKEN = 'd424f61c-a7b0-4809-88e3-161ed390a843'
@@ -41,7 +43,17 @@ data = json.loads(content)
 
 print(data)
 
+# Custom static data
+@app.route("/css/<filename>")
+def get_css(filename):
+    filename = f"{filename}"
+    print (filename)
+    return send_from_directory("/Front End/css/", filename=filename, as_attachment=True)
 @app.route('/',methods= ['GET','POST'])
+def login():
+    return render_template('index.html')
+
+@app.route('/customers',methods=['POST'])
 def home(): # need to accept parameters
     path = "customers/limzeyang"
     target = urlparse(uri+path)
@@ -51,6 +63,9 @@ def home(): # need to accept parameters
     return render_template('login.html',login=data)
     # return render_template('login.html', login=json.loads(content))
 
+@app.route('/css')
+def css():
+    return
 # def init_session():
 #     r = requests.Session()
 #     r.headers.update({'identity':API_IDENTITY,'token':API_TOKEN})
