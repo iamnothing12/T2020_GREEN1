@@ -5,6 +5,7 @@ import httplib2 as http
 import json
 import datetime
 import pygal
+import pandas as pd
 
 try:
     from urlparse import urlparse
@@ -49,11 +50,10 @@ data = json.loads(content)
 def login():
     return render_template('index.html')
 
-@app.route('/customers',methods=['POST'])
-def home(): # need to accept parameters
-    text = request.form['username']
-    username_field = text
-    path = "customers/"+ username_field
+@app.route('/customers', methods=['POST'])
+def validate(): # need to accept parameters
+    username_field = request.form['username']
+    path = 'customers/'+ username_field
     target = urlparse(uri+path)
     response, content = h.request(target.geturl(),method,body,headers)
     customerData = json.loads(content)
@@ -61,8 +61,17 @@ def home(): # need to accept parameters
         return render_template('index.html')
     if response == 404:
         return render_template('index.html')
+    #customerDetails = json.load(get_customerDetails(customerData))
+    # print(customerDetails)
+    username_field = customerData['customerId']
+    path = 'customers/'+ username_field+'/details'
+    target = urlparse(uri+path)
+    response, content = h.request(target.geturl(),method,body,headers)
+    customerData = json.loads(content)
+    print(customerData)
+    return render_template('home.html',login=customerData)
 
-    return render_template('login.html',login=customerData)
+
 
 @app.route('/transaction',methods=['GET'])
 def get_transaction():
@@ -94,8 +103,17 @@ def get_transaction():
     pie_chart = pie_chart.render_data_uri()
     return render_template('transaction.html', chart =pie_chart)
 
-
-
+@app.route('/transaction1',methods=['GET'])
+def get_transaction1():
+    path = 'transactions/'+ r'74/?from=01-01-2019&to=01-31-2019'
+    target = urlparse(uri+path)
+    response, content = h.request(target.geturl(),method,body,headers)
+    transactionData = json.loads(content)
+    # newtransactionData = sorted(transactionData, key = lambda i: i['date'], reverse = True)
+    # return render_template('transaction1.html',result=newtransactionData)
+    d1 = pd.DataFrame.from_records(transactionData)
+    df1 = d1.sort_values(by='date', ascending=False)
+    return render_template('TransactionFormat.html', tables=[df1.to_html(classes='data')], titles=df1.columns.values)
 if __name__ == '__main__':
     # init_session()
     app.run()
