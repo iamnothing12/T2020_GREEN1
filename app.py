@@ -61,7 +61,10 @@ def home(): # need to accept parameters
         return render_template('index.html')
     
     return render_template('login.html',login=customerData)
-   
+
+@app.route('/home',methods= ['GET','POST'])
+def anotherhome():
+    return render_template('home.html')   
 
 if __name__ == '__main__':
     # init_session()
