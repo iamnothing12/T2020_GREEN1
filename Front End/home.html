@@ -1,7 +1,5 @@
 <!DOCTYPE HTML>
 <html lang="en">
-<meta charset="utf-8">
-
 <head>
 	<link href="./images/logo-icon.ico" type="image/png" rel="shortcut icon"/>
 	<title>DBS Page</title>
@@ -21,33 +19,5 @@
 	<!-- //Custom Theme files -->
 
 
-	
 </head>
-
-<body>
-<header>
-<div class ="wrapper">
-<h1><img src ="{{ url_for('static', filename='images/dbs_logo.jpg') }}" alt = "DBS LOGIN" class = "logo"></h1>
-</div>
-</header>
-
-<form action="/customer" method="post">
-<div class="formlogin">
-	<label for = "username">
-		<b>Username</b>
-	</label><br>
-	<input type="text" placeholder="Enter Username" name="username" required>
-	<br>
-	<label for = "password">
-		<b>Password</b>
-	</label><br>
-	<input type="text" placeholder="Enter Password" name="password" required>
-
-<br><button type="submit" class="loginbtn">Login</button>
-
-
-</div>
-
-</form>
-</body>
 </html>
